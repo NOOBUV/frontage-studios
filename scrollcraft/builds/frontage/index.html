@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frontage Studios · Get mentioned by AI</title>
+<meta name="description" content="Frontage Studios gets small businesses cited by ChatGPT and other AI assistants, starting with the website AI can actually read.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0D12'/><circle cx='16' cy='16' r='6' fill='%23E3A44A'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #0A0D12;
+    --sc-surface:    #131820;
+    --sc-ink:        #F2EEE3;
+    --sc-ink-soft:   #A8A395;
+    --sc-accent:     #E3A44A;
+    --sc-accent-ink: #191106;
+    --sc-font-display: "Archivo", system-ui, sans-serif;
+    --sc-font-text:    "Geist", system-ui, sans-serif;
+  }
+
+  .site-bar {
+    position: fixed; inset: 0 0 auto 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: var(--sc-4) var(--sc-gutter);
+    pointer-events: none;
+  }
+  .site-bar > * { pointer-events: auto; }
+  .site-bar__mark {
+    font-family: var(--sc-font-display); font-weight: 600;
+    letter-spacing: var(--sc-track-snug);
+    color: var(--sc-ink); text-decoration: none; font-size: 1.05rem;
+  }
+  .btn {
+    display: inline-block; font-family: var(--sc-font-display); font-weight: 600;
+    font-size: 0.95rem; letter-spacing: 0.01em; text-decoration: none;
+    color: var(--sc-accent-ink); background: var(--sc-accent);
+    padding: 0.62em 1.25em; border-radius: 8px;
+    transition: transform 140ms var(--sc-ease-out), background 140ms var(--sc-ease-out);
+  }
+  .btn:hover { background: #EFB35D; }
+  .btn:active { transform: translateY(1px) scale(0.98); }
+  .btn:focus-visible { outline: 2px solid var(--sc-accent); outline-offset: 3px; }
+
+  /* copy blocks over the flight */
+  .fs-line { max-width: 26ch; }
+  .fs-line .sc-body { margin-top: var(--sc-3); }
+  .fs-kicker {
+    font-family: var(--sc-font-text); font-weight: 500; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--sc-accent);
+    margin: 0 0 var(--sc-2);
+  }
+
+  /* ---- signature move: the answer that types itself ---- */
+  .chat {
+    width: min(560px, calc(100vw - 2 * var(--sc-gutter)));
+    display: grid; gap: var(--sc-3);
+    text-align: left;
+  }
+  .chat__q, .chat__a {
+    border-radius: 14px; padding: var(--sc-3) var(--sc-4);
+    font-family: var(--sc-font-text); font-size: 1.02rem; line-height: 1.55;
+  }
+  .chat__q {
+    justify-self: end; max-width: 78%;
+    background: var(--sc-surface); color: var(--sc-ink);
+    border: 1px solid var(--sc-hairline);
+  }
+  .chat__a {
+    justify-self: start; max-width: 100%;
+    background: rgba(19, 24, 32, 0.82);
+    border: 1px solid var(--sc-hairline);
+    color: var(--sc-ink);
+    backdrop-filter: blur(6px);
+  }
+  .chat__a .tok { display: none; }
+  .chat__a .tok.on { display: inline; }
+  .chat__a .caret {
+    display: inline-block; width: 2px; height: 1em; margin-left: 1px;
+    background: var(--sc-accent); vertical-align: text-bottom;
+  }
+  .chat__a.done .caret { opacity: 0; }
+  .cite {
+    display: inline-flex; align-items: center; gap: 0.4em;
+    margin-top: var(--sc-2);
+    font-size: 0.85rem; font-weight: 500; color: var(--sc-accent);
+    border: 1px solid color-mix(in srgb, var(--sc-accent) 45%, transparent);
+    border-radius: 999px; padding: 0.25em 0.8em;
+    opacity: 0; transform: scale(0.95);
+    transition: opacity 220ms var(--sc-ease-out), transform 220ms var(--sc-ease-out);
+  }
+  .cite.on { opacity: 1; transform: scale(1); }
+  .chat__tag {
+    margin: var(--sc-2) 0 0; font-size: 0.95rem; color: var(--sc-ink-soft);
+  }
+
+  /* darker band: same shape, more density where all copy sits */
+  .sc-world__scrim.sc-scrim--band {
+    background: linear-gradient(to top,
+      color-mix(in oklab, var(--sc-canvas) 97%, transparent) 0%,
+      color-mix(in oklab, var(--sc-canvas) 86%, transparent) 26%,
+      color-mix(in oklab, var(--sc-canvas) 48%, transparent) 50%,
+      transparent 68%);
+  }
+  /* horizontally centred copy, anchored into the scrim band */
+      .fs-center-low::before {
+      content: ""; position: absolute; inset: -2.5rem -3.5rem; z-index: -1;
+      background: radial-gradient(ellipse at center,
+        color-mix(in oklab, var(--sc-canvas) 78%, transparent) 0%,
+        color-mix(in oklab, var(--sc-canvas) 55%, transparent) 55%,
+        transparent 78%);
+    }
+    .fs-center-low {
+    inset-inline: auto; left: 50%; translate: -50% 0;
+    bottom: clamp(3rem, 10vh, 8rem);
+    text-align: center;
+  }
+  .fs-center-low .chat { text-align: left; margin-inline: auto; }
+
+  @media (max-width: 700px) {
+    .sc-display--xl { font-size: var(--sc-t-2xl); }
+    .chat__q, .chat__a { font-size: 0.95rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<header class="site-bar">
+  <a class="site-bar__mark" href="#top">Frontage Studios</a>
+  <a class="btn" href="mailto:hello@frontagestudios.com">Book a call</a>
+</header>
+
+<main id="top" data-sc-mode="worldflight" data-sc-seam="0.16" data-sc-lerp="0.12">
+
+  <div data-sc-world>
+    <div data-sc-segment data-sc-w="1.3" data-sc-waypoint="Storefront">
+      <img class="sc-world__poster" src="assets/p01.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/01.mp4" data-sc-src-mobile="assets/clips/01-m.mp4" muted playsinline></video>
+    </div>
+    <div data-sc-segment data-sc-w="2.1" data-sc-waypoint="City">
+      <img class="sc-world__poster" src="assets/p02.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/02.mp4" data-sc-src-mobile="assets/clips/02-m.mp4" muted playsinline></video>
+    </div>
+    <div data-sc-segment data-sc-w="2.1" data-sc-waypoint="Phone">
+      <img class="sc-world__poster" src="assets/p03.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/03.mp4" data-sc-src-mobile="assets/clips/03-m.mp4" muted playsinline></video>
+    </div>
+    <div data-sc-segment data-sc-w="2.1" data-sc-waypoint="Sources">
+      <img class="sc-world__poster" src="assets/p04.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/04.mp4" data-sc-src-mobile="assets/clips/04-m.mp4" muted playsinline></video>
+    </div>
+    <div data-sc-segment data-sc-w="3.0" data-sc-linger="0.45" data-sc-waypoint="Proof">
+      <img class="sc-world__poster" src="assets/p05.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/05.mp4" data-sc-src-mobile="assets/clips/05-m.mp4" muted playsinline></video>
+    </div>
+    <div data-sc-segment data-sc-w="1.6" data-sc-waypoint="Found">
+      <img class="sc-world__poster" src="assets/p06.webp" alt="" decoding="async">
+      <video data-sc-src="assets/clips/06.mp4" data-sc-src-mobile="assets/clips/06-m.mp4" muted playsinline></video>
+    </div>
+  </div>
+
+  <div data-sc-world-copy>
+    <div class="sc-world__scrim sc-scrim sc-scrim--band" aria-hidden="true"></div>
+
+    <!-- 1 · Recognition -->
+    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="hero">
+      <h1 class="sc-display sc-display--xl">The best shop on the street is invisible.</h1>
+      <p class="sc-body">A corner bakery, warm and open. Nobody walking past.</p>
+    </div>
+
+    <!-- 2 · Tension -->
+    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.125 0.26">
+      <h2 class="sc-display sc-display--lg">Your customers stopped exploring streets.</h2>
+      <p class="sc-body">They are home, asking a screen where to go.</p>
+    </div>
+
+    <!-- 3 · Turn -->
+    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.30 0.43">
+      <h2 class="sc-display sc-display--lg">They ask ChatGPT.</h2>
+      <p class="sc-body">And it answers with names it can verify.</p>
+    </div>
+
+    <!-- 4 · Substance -->
+    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.47 0.60">
+      <h2 class="sc-display sc-display--lg">Every answer follows a trail of sources.</h2>
+      <p class="sc-body">AI recommends what it can read and trust.</p>
+    </div>
+
+    <!-- 4b · Proof line -->
+    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.635 0.715">
+      <h2 class="sc-display sc-display--lg">Your website is the proof AI reads.</h2>
+    </div>
+
+    <!-- 5 · PEAK: the scroll types the answer -->
+    <div class="sc-copy fs-center-low" data-sc-copy data-sc-window="0.745 0.915 0.06 0.2">
+      <div class="chat" id="chat">
+        <p class="chat__q">best bakery near me that's actually good?</p>
+        <p class="chat__a" id="answer" aria-label="The corner bakery on Rue Moreau is the one locals keep mentioning. Fresh batches from 7am, and their site shows what came out of the oven this morning."></p>
+        <span class="cite" id="cite">frontage · your-shop.com</span>
+        <p class="chat__tag">That answer is the product. We make AI say your name.</p>
+      </div>
+    </div>
+
+    <!-- 6 · Commitment -->
+    <div class="sc-copy fs-center-low fs-line" data-sc-copy data-sc-window="finale">
+      <h2 class="sc-display sc-display--lg">Now they find you.</h2>
+      <p class="sc-body">Websites built to be read by AI, then a presence that gets you cited. Small businesses, worldwide.</p>
+      <p style="margin-top: var(--sc-5);"><a class="btn" href="mailto:hello@frontagestudios.com">Book a call</a></p>
+    </div>
+  </div>
+
+  <div data-sc-spacer aria-hidden="true"></div>
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>
+  ScrollCraft.mount(document);
+
+  // worldflight 7b: re-measure once window and fonts settle
+  function relayout() { dispatchEvent(new Event('resize')); }
+  addEventListener('load', relayout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
+
+  // ---- signature move: scroll types the answer, token by token ----
+  (function () {
+    var ANSWER = "The corner bakery on Rue Moreau is the one locals keep mentioning. Fresh batches from 7am, and their site shows what came out of the oven this morning.";
+    var el = document.getElementById('answer');
+    var cite = document.getElementById('cite');
+    var words = ANSWER.split(' ');
+    var toks = words.map(function (w, i) {
+      var s = document.createElement('span');
+      s.className = 'tok';
+      s.textContent = (i ? ' ' : '') + w;
+      el.appendChild(s);
+      return s;
+    });
+    var caret = document.createElement('span');
+    caret.className = 'caret'; caret.setAttribute('aria-hidden', 'true');
+    el.appendChild(caret);
+
+    // typing spans track fractions [T0, T1] of the flight
+    var T0 = 0.765, T1 = 0.895;
+    var mode = document.querySelector('[data-sc-mode="worldflight"]');
+    var total = 0;
+    mode.querySelectorAll('[data-sc-segment]').forEach(function (s) {
+      total += parseFloat(s.getAttribute('data-sc-w') || '1.3');
+    });
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function paint() {
+      var p;
+      if (reduced) { p = 1; }
+      else {
+        var t = scrollY / innerHeight; // world starts at page top
+        p = (t / total - T0) / (T1 - T0);
+        p = Math.max(0, Math.min(1, p));
+      }
+      var n = Math.round(p * toks.length);
+      toks.forEach(function (s, i) { s.classList.toggle('on', i < n); });
+      el.classList.toggle('done', p >= 1);
+      cite.classList.toggle('on', p >= 1);
+      if (!reduced) requestAnimationFrame(paint);
+    }
+    requestAnimationFrame(paint);
+  })();
+</script>
+</body>
+</html>

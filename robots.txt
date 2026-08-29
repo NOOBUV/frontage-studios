@@ -1,0 +1,7 @@
+# frontagestudios.com — AI crawlers are welcome here. Being read is the product.
+Content-Signal: search=yes, ai-input=yes
+
+User-agent: *
+Allow: /
+
+Sitemap: https://frontagestudios.com/sitemap.xml

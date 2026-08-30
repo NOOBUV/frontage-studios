@@ -267,7 +267,7 @@
 <main id="top" data-sc-mode="worldflight" data-sc-seam="0.16" data-sc-lerp="0.22">
 
   <div data-sc-world>
-    <div data-sc-segment data-sc-w="0.9" data-sc-waypoint="Storefront">
+    <div data-sc-segment data-sc-w="0.5" data-sc-waypoint="Storefront">
       <img class="sc-world__poster" src="assets/p01.webp" alt="" decoding="async">
       <video data-sc-src="assets/clips/01.mp4" data-sc-src-mobile="assets/clips/01-m.mp4" muted playsinline></video>
     </div>
@@ -297,36 +297,36 @@
     <div class="sc-world__scrim sc-scrim sc-scrim--band" aria-hidden="true"></div>
 
     <!-- 1 · Recognition -->
-    <div class="sc-copy sc-copy--lead fs-line fs-hero" data-sc-copy data-sc-window="0 0.12 0 0.22">
+    <div class="sc-copy sc-copy--lead fs-line fs-hero" data-sc-copy data-sc-window="0 0.08 0 0.22">
       <h1 class="sc-display sc-display--xl">The best shop on the street is invisible.</h1>
       <p class="sc-body">A corner bakery, warm and open. Nobody walking past.</p>
     </div>
 
     <!-- 2 · Tension -->
-    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.095 0.30 0.18 0.18">
+    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.055 0.265 0.18 0.18">
       <h2 class="sc-display sc-display--lg">Your customers stopped exploring streets.</h2>
       <p class="sc-body">They are home, asking a screen where to go.</p>
     </div>
 
     <!-- 3 · Turn -->
-    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.275 0.48 0.18 0.18">
+    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.24 0.455 0.18 0.18">
       <h2 class="sc-display sc-display--lg">They ask ChatGPT.</h2>
       <p class="sc-body">And it answers with names it can verify.</p>
     </div>
 
     <!-- 4 · Substance -->
-    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.455 0.66 0.18 0.18">
+    <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.43 0.645 0.18 0.18">
       <h2 class="sc-display sc-display--lg">Every answer follows a trail of sources.</h2>
       <p class="sc-body">AI recommends what it can read and trust.</p>
     </div>
 
     <!-- 4b · Proof line -->
-    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.635 0.74 0.16 0.16">
+    <div class="sc-copy sc-copy--lead fs-line" data-sc-copy data-sc-window="0.62 0.725 0.16 0.16">
       <h2 class="sc-display sc-display--lg">Your website is the proof AI reads.</h2>
     </div>
 
     <!-- 5 · PEAK: the scroll types the answer -->
-    <div class="sc-copy fs-center-low" data-sc-copy data-sc-window="0.715 0.91 0.06 0.14">
+    <div class="sc-copy fs-center-low" data-sc-copy data-sc-window="0.70 0.905 0.06 0.14">
       <div class="chat" id="chat">
         <p class="chat__q">best bakery near me that's actually good?</p>
         <p class="chat__a" id="answer" aria-label="The corner bakery on Rue Moreau is the one locals keep mentioning. Fresh batches from 7am, and their site shows what came out of the oven this morning."></p>
@@ -336,7 +336,7 @@
     </div>
 
     <!-- 6 · Commitment -->
-    <div class="sc-copy fs-center-low fs-line" data-sc-copy data-sc-window="0.89 1 0.24 0">
+    <div class="sc-copy fs-center-low fs-line" data-sc-copy data-sc-window="0.885 1 0.24 0">
       <h2 class="sc-display sc-display--lg">Now they find you.</h2>
       <p class="sc-body">Websites built to be read by AI, then a presence that gets you cited. Small businesses, worldwide.</p>
       <p style="margin-top: var(--sc-5);"><a class="btn" href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a></p>
@@ -391,7 +391,7 @@
     el.appendChild(caret);
 
     // typing spans track fractions [T0, T1] of the flight
-    var T0 = 0.735, T1 = 0.87;
+    var T0 = 0.72, T1 = 0.865;
     var mode = document.querySelector('[data-sc-mode="worldflight"]');
     var total = 0;
     mode.querySelectorAll('[data-sc-segment]').forEach(function (s) {

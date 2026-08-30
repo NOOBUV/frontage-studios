@@ -158,6 +158,12 @@
     .fs-hero { max-width: none; bottom: clamp(2.5rem, 8vh, 5rem); }
     .chat__q, .chat__a { font-size: 0.95rem; }
   }
+
+  /* mobile: drop the compositing extras the GPU pays for on every frame */
+  @media (max-width: 860px), (pointer: coarse) {
+    .sc-grain { display: none; }
+    .btn, .chat__a { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  }
 </style>
 </head>
 <body>
@@ -173,27 +179,27 @@
 
   <div data-sc-world>
     <div data-sc-segment data-sc-w="0.5" data-sc-waypoint="Storefront">
-      <img class="sc-world__poster" src="assets/p01.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p01-m.webp"><img class="sc-world__poster" src="assets/p01.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/01.mp4" data-sc-src-mobile="assets/clips/01-m.mp4" muted playsinline></video>
     </div>
     <div data-sc-segment data-sc-w="1.5" data-sc-waypoint="City">
-      <img class="sc-world__poster" src="assets/p02.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p02-m.webp"><img class="sc-world__poster" src="assets/p02.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/02.mp4" data-sc-src-mobile="assets/clips/02-m.mp4" muted playsinline></video>
     </div>
     <div data-sc-segment data-sc-w="1.5" data-sc-waypoint="Phone">
-      <img class="sc-world__poster" src="assets/p03.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p03-m.webp"><img class="sc-world__poster" src="assets/p03.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/03.mp4" data-sc-src-mobile="assets/clips/03-m.mp4" muted playsinline></video>
     </div>
     <div data-sc-segment data-sc-w="1.5" data-sc-waypoint="Sources">
-      <img class="sc-world__poster" src="assets/p04.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p04-m.webp"><img class="sc-world__poster" src="assets/p04.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/04.mp4" data-sc-src-mobile="assets/clips/04-m.mp4" muted playsinline></video>
     </div>
     <div data-sc-segment data-sc-w="2.0" data-sc-linger="0.20" data-sc-waypoint="Proof">
-      <img class="sc-world__poster" src="assets/p05.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p05-m.webp"><img class="sc-world__poster" src="assets/p05.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/05.mp4" data-sc-src-mobile="assets/clips/05-m.mp4" muted playsinline></video>
     </div>
     <div data-sc-segment data-sc-w="1.0" data-sc-waypoint="Found">
-      <img class="sc-world__poster" src="assets/p06.webp" alt="" decoding="async">
+      <picture><source media="(max-width: 860px), (pointer: coarse)" srcset="assets/p06-m.webp"><img class="sc-world__poster" src="assets/p06.webp" alt="" decoding="async"></picture>
       <video data-sc-src="assets/clips/06.mp4" data-sc-src-mobile="assets/clips/06-m.mp4" muted playsinline></video>
     </div>
   </div>

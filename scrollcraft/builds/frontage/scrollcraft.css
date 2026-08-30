@@ -331,7 +331,7 @@ video[data-sc-scrub] { opacity: 0; transition: opacity 380ms var(--sc-ease-out);
   opacity: 0;
   will-change: opacity;
 }
-.sc-world__seg > :is(video, img, canvas) {
+.sc-world__seg :is(video, img, canvas) {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;

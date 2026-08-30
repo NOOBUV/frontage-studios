@@ -5,6 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Frontage Studios · Get mentioned by AI</title>
 <meta name="description" content="Frontage Studios gets small businesses cited by ChatGPT and other AI assistants, starting with the website AI can actually read.">
+<link rel="canonical" href="https://frontagestudios.com/">
+<meta name="theme-color" content="#0A0D12">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Frontage Studios">
+<meta property="og:title" content="Frontage Studios · Get mentioned by AI">
+<meta property="og:description" content="Frontage Studios gets small businesses cited by ChatGPT and other AI assistants, starting with the website AI can actually read.">
+<meta property="og:url" content="https://frontagestudios.com/">
+<meta property="og:image" content="https://frontagestudios.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Frontage Studios · Get mentioned by AI">
+<meta name="twitter:description" content="Frontage Studios gets small businesses cited by ChatGPT and other AI assistants, starting with the website AI can actually read.">
+<meta name="twitter:image" content="https://frontagestudios.com/assets/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://frontagestudios.com/#org",
+      "name": "Frontage Studios",
+      "url": "https://frontagestudios.com/",
+      "logo": "https://frontagestudios.com/assets/brand/fb-avatar.png",
+      "email": "hello@frontagestudios.com",
+      "description": "Frontage Studios builds websites AI assistants can read, verify and cite, so small businesses get mentioned when customers ask ChatGPT, Perplexity or Google where to go.",
+      "sameAs": ["https://www.facebook.com/profile.php?id=61593503686053"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://frontagestudios.com/#site",
+      "url": "https://frontagestudios.com/",
+      "name": "Frontage Studios",
+      "publisher": { "@id": "https://frontagestudios.com/#org" }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://frontagestudios.com/",
+      "url": "https://frontagestudios.com/",
+      "name": "Frontage Studios · Get mentioned by AI",
+      "isPartOf": { "@id": "https://frontagestudios.com/#site" },
+      "about": { "@id": "https://frontagestudios.com/#org" },
+      "description": "Frontage Studios gets small businesses cited by ChatGPT and other AI assistants, starting with the website AI can actually read."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://frontagestudios.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What does Frontage Studios do?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Frontage Studios builds and rebuilds small-business websites so AI assistants like ChatGPT, Perplexity and Google can read, verify and cite them — then builds the wider presence that earns your business real mentions in AI answers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why isn't my business showing up in ChatGPT answers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI assistants only recommend businesses they can read and verify. If your site blocks AI crawlers, hides its content behind scripts, or lacks structured data about who you are and what you offer, assistants skip you and cite a competitor instead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I work with Frontage Studios?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Book a call at cal.com/frontage-studios/intro or email hello@frontagestudios.com. We work with small businesses worldwide, starting with the website AI can actually read."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0D12'/><circle cx='16' cy='16' r='6' fill='%23E3A44A'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +104,10 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: var(--sc-4) var(--sc-gutter);
     pointer-events: none;
+    transition: opacity 400ms var(--sc-ease-out);
   }
+  .site-bar--dim { opacity: 0; }
+  .site-bar--dim > * { pointer-events: none; }
   .site-bar > * { pointer-events: auto; }
   .site-bar__mark {
     display: inline-flex; align-items: center; gap: 0.65rem;
@@ -76,6 +156,31 @@
   .fs-hero .sc-display { max-width: none; }
   .fs-hero .sc-body { max-width: 32rem; }
   .fs-line .sc-body { margin-top: var(--sc-3); }
+  .site-footer {
+    position: relative; z-index: var(--sc-z-chrome);
+    background: var(--sc-canvas);
+    border-top: 1px solid color-mix(in srgb, var(--sc-ink) 14%, transparent);
+    padding: clamp(3rem, 8vh, 5rem) var(--sc-gutter) clamp(2.5rem, 6vh, 4rem);
+  }
+  .site-footer__inner { max-width: 40rem; margin: 0 auto; }
+  .site-footer .sc-body { margin-top: var(--sc-3); max-width: none; }
+  .site-footer h3 {
+    font-family: var(--sc-font-display); font-weight: 600; font-size: 1.05rem;
+    color: var(--sc-ink); margin-top: var(--sc-6);
+  }
+  .faq { margin-top: var(--sc-6); }
+  .faq summary {
+    font-family: var(--sc-font-display); font-weight: 600; font-size: 1.05rem;
+    color: var(--sc-ink); cursor: pointer;
+  }
+  .faq summary::marker { color: var(--sc-accent); }
+  .faq .sc-body { margin-top: var(--sc-2); }
+  .site-footer a { color: var(--sc-accent); }
+  .site-footer__meta {
+    margin-top: var(--sc-7); font-size: 0.85rem; color: var(--sc-ink-soft);
+    font-family: var(--sc-font-text);
+  }
+
   .fs-kicker {
     font-family: var(--sc-font-text); font-weight: 500; font-size: 0.85rem;
     letter-spacing: 0.08em; text-transform: uppercase; color: var(--sc-accent);
@@ -148,6 +253,8 @@
   }
   .fs-center-low .chat { text-align: left; margin-inline: auto; }
 
+  .fs-short { display: none; }
+
   @media (max-width: 700px) {
     .site-bar { padding-block: var(--sc-3); }
     .site-bar__mark { gap: 0.45rem; font-size: 0.92rem; }
@@ -156,7 +263,10 @@
     .btn::after { width: 1.7rem; }
     .sc-display--xl { font-size: var(--sc-t-2xl); }
     .fs-hero { max-width: none; bottom: clamp(2.5rem, 8vh, 5rem); }
-    .chat__q, .chat__a { font-size: 0.95rem; }
+    .chat { width: calc(100vw - 2rem); }
+    .chat__q, .chat__a { font-size: 1rem; }
+    .fs-long { display: none; }
+    .fs-short { display: inline; }
   }
 
   /* mobile: drop the compositing extras the GPU pays for on every frame */
@@ -172,7 +282,7 @@
 
 <header class="site-bar">
   <a class="site-bar__mark" href="#top">Frontage Studios</a>
-  <a class="btn" href="mailto:hello@frontagestudios.com">Book a call</a>
+  <a class="btn" href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a>
 </header>
 
 <main id="top" data-sc-mode="worldflight" data-sc-seam="0.16" data-sc-lerp="0.22">
@@ -227,7 +337,7 @@
 
     <!-- 4 · Substance -->
     <div class="sc-copy sc-copy--trail fs-line" data-sc-copy data-sc-window="0.43 0.645 0.18 0.18">
-      <h2 class="sc-display sc-display--lg">Every answer follows a trail of sources.</h2>
+      <h2 class="sc-display sc-display--lg"><span class="fs-long">Every answer follows a trail of sources.</span><span class="fs-short">Every answer follows sources.</span></h2>
       <p class="sc-body">AI recommends what it can read and trust.</p>
     </div>
 
@@ -250,15 +360,56 @@
     <div class="sc-copy fs-center-low fs-line" data-sc-copy data-sc-window="0.885 1 0.24 0">
       <h2 class="sc-display sc-display--lg">Now they find you.</h2>
       <p class="sc-body">Websites built to be read by AI, then a presence that gets you cited. Small businesses, worldwide.</p>
-      <p style="margin-top: var(--sc-5);"><a class="btn" href="mailto:hello@frontagestudios.com">Book a call</a></p>
+      <p style="margin-top: var(--sc-5);"><a class="btn" href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a></p>
     </div>
   </div>
 
   <div data-sc-spacer aria-hidden="true"></div>
 </main>
 
+<footer class="site-footer" id="about">
+  <div class="site-footer__inner">
+    <h2 class="sc-display sc-display--lg">What Frontage Studios does</h2>
+    <p class="sc-body">Frontage Studios builds and rebuilds small-business websites so AI assistants like ChatGPT, Perplexity and Google can read, verify and cite them — then builds the wider presence that earns your business real mentions in AI answers.</p>
+
+    <details class="faq" open>
+      <summary>Why isn't my business showing up in ChatGPT answers?</summary>
+      <p class="sc-body">AI assistants only recommend businesses they can read and verify. If your site blocks AI crawlers, hides its content behind scripts, or lacks structured data about who you are and what you offer, assistants skip you and cite a competitor instead.</p>
+    </details>
+
+    <details class="faq" open>
+      <summary>How do I work with Frontage Studios?</summary>
+      <p class="sc-body"><a href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a> or email <a href="mailto:hello@frontagestudios.com">hello@frontagestudios.com</a>. We work with small businesses worldwide, starting with the website AI can actually read.</p>
+    </details>
+
+    <p class="site-footer__meta">
+      Frontage Studios · <a href="mailto:hello@frontagestudios.com">hello@frontagestudios.com</a> ·
+      <a href="https://www.facebook.com/profile.php?id=61593503686053" rel="noopener noreferrer">Facebook</a>
+    </p>
+  </div>
+</footer>
+
 <script src="scrollcraft.js"></script>
 <script>
+  // ponytail: mobile-only retune — shorter city/sources legs, finale hold,
+  // non-overlapping copy windows, collapsed FAQ. Desktop untouched.
+  var MOBI = matchMedia('(max-width: 860px), (pointer: coarse)').matches;
+  if (MOBI) {
+    var legs = { City: '1.2', Sources: '1.2' };
+    document.querySelectorAll('[data-sc-segment]').forEach(function (s) {
+      var k = s.getAttribute('data-sc-waypoint');
+      if (legs[k]) s.setAttribute('data-sc-w', legs[k]);
+      if (k === 'Found') s.setAttribute('data-sc-linger', '0.15');
+    });
+    var wins = ['0 0.08 0 0.22', '0.06 0.25 0.18 0.18', '0.265 0.44 0.18 0.18',
+                '0.455 0.63 0.18 0.18', '0.645 0.72 0.16 0.16', '0.70 0.905 0.06 0.14',
+                '0.885 1 0.24 0'];
+    document.querySelectorAll('[data-sc-copy]').forEach(function (c, i) {
+      if (wins[i]) c.setAttribute('data-sc-window', wins[i]);
+    });
+    document.querySelectorAll('.faq[open]').forEach(function (d) { d.removeAttribute('open'); });
+  }
+
   ScrollCraft.mount(document);
 
   // worldflight 7b: re-measure once window and fonts settle
@@ -291,13 +442,16 @@
       total += parseFloat(s.getAttribute('data-sc-w') || '1.3');
     });
     var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var bar = document.querySelector('.site-bar');
 
     function paint() {
       var p;
       if (reduced) { p = 1; }
       else {
         var t = scrollY / innerHeight; // world starts at page top
-        p = (t / total - T0) / (T1 - T0);
+        var f = t / total;
+        if (MOBI) bar.classList.toggle('site-bar--dim', f > 0.06 && f < 0.86);
+        p = (f - T0) / (T1 - T0);
         p = Math.max(0, Math.min(1, p));
       }
       var n = Math.round(p * toks.length);

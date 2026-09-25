@@ -1,0 +1,98 @@
+:root {
+  --canvas: #0A0D12;
+  --surface: #131820;
+  --ink: #F2EEE3;
+  --ink-soft: #A8A395;
+  --accent: #E3A44A;
+  --hairline: color-mix(in oklab, var(--ink) 14%, transparent);
+  --display: "Archivo", system-ui, sans-serif;
+  --text: "Geist", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { background: var(--canvas); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--canvas); color: var(--ink);
+  font: 400 1.075rem/1.7 var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1rem clamp(1rem, 5vw, 5.5rem);
+  border-bottom: 1px solid var(--hairline);
+}
+.bar a { text-decoration: none; }
+.bar__mark { font: 600 1.05rem var(--display); color: var(--ink); display: inline-flex; align-items: center; gap: .65rem; }
+.bar__mark::before { content: ""; width: 1.3rem; height: 1px; background: var(--accent); }
+.bar__nav { display: flex; gap: 1.25rem; font: 500 .9rem var(--text); }
+.bar__nav a { color: var(--ink-soft); }
+.bar__nav a:hover { color: var(--ink); }
+
+.wrap { max-width: 44rem; margin: 0 auto; padding: clamp(2rem, 6vh, 4rem) 1rem 4rem; }
+.kicker { font: 500 .8rem var(--text); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 .75rem; }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0 0 1rem; }
+h2 { font-size: 1.6rem; margin: 3rem 0 .75rem; scroll-margin-top: 1.5rem; }
+h3 { font-size: 1.2rem; margin: 2rem 0 .5rem; }
+.meta { color: var(--ink-soft); font-size: .92rem; margin: 0 0 2rem; }
+.lede { font-size: 1.2rem; color: var(--ink); }
+p, li { color: color-mix(in oklab, var(--ink) 88%, var(--ink-soft)); }
+strong { color: var(--ink); font-weight: 500; }
+ul, ol { padding-left: 1.3rem; }
+li + li { margin-top: .35rem; }
+
+.answer {
+  border: 1px solid var(--hairline); border-left: 3px solid var(--accent);
+  background: var(--surface); border-radius: 10px; padding: 1rem 1.25rem; margin: 1.5rem 0;
+}
+.answer p:first-child { margin-top: 0; } .answer p:last-child { margin-bottom: 0; }
+.toc { border: 1px solid var(--hairline); border-radius: 10px; padding: 1rem 1.25rem; margin: 2rem 0; }
+.toc p { margin: 0 0 .4rem; font: 600 .95rem var(--display); color: var(--ink); }
+.toc ol { margin: 0; }
+
+pre {
+  background: #0F141B; border: 1px solid var(--hairline); border-radius: 10px;
+  padding: 1rem; overflow-x: auto; font: .86rem/1.55 var(--mono); color: #D9D4C7;
+}
+code { font-family: var(--mono); font-size: .9em; }
+:not(pre) > code { background: var(--surface); padding: .1em .35em; border-radius: 4px; }
+
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+th, td { text-align: left; padding: .6rem .7rem; border-bottom: 1px solid var(--hairline); vertical-align: top; }
+th { font: 600 .9rem var(--display); color: var(--ink); }
+
+.cta {
+  margin: 3rem 0; padding: 1.5rem; border-radius: 14px;
+  background: var(--surface); border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+}
+.cta h2 { margin-top: 0; }
+.faq details { border-bottom: 1px solid var(--hairline); padding: .75rem 0; }
+.faq summary { font: 600 1.05rem var(--display); cursor: pointer; color: var(--ink); }
+.faq summary::marker { color: var(--accent); }
+
+.posts { list-style: none; padding: 0; }
+.posts li { border-bottom: 1px solid var(--hairline); padding: 1.25rem 0; }
+.posts a { font: 600 1.3rem var(--display); text-decoration: none; }
+.posts p { margin: .4rem 0 0; }
+
+.foot { border-top: 1px solid var(--hairline); color: var(--ink-soft); font-size: .88rem; padding: 2rem 1rem; text-align: center; }
+
+/* Reading progress bar: a live CSS scroll-driven animation, no JavaScript. */
+.progress { display: none; }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .progress {
+      display: block; position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 10;
+      background: var(--accent); transform-origin: 0 50%;
+      animation: grow linear both; animation-timeline: scroll(root);
+    }
+    .reveal { animation: reveal linear both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+  }
+}
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes reveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }

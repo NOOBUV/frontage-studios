@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>How to Make a Flowy Website (2026): Smooth Scroll, Scroll Animation and Video Scrub · Frontage Studios</title>
+<meta name="description" content="A practical 2026 guide to building a flowy website: smooth scrolling, CSS scroll-driven animations, GSAP ScrollTrigger with Lenis, Apple-style scroll-scrubbed video, performance, accessibility, and keeping it readable by ChatGPT.">
+<link rel="canonical" href="https://frontagestudios.com/blog/how-to-make-a-flowy-website/">
+<meta name="theme-color" content="#0A0D12">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Frontage Studios">
+<meta property="og:title" content="How to Make a Flowy Website (2026)">
+<meta property="og:description" content="Smooth scrolling, scroll-driven animation and Apple-style video scrub, built so the site stays fast and readable by AI.">
+<meta property="og:url" content="https://frontagestudios.com/blog/how-to-make-a-flowy-website/">
+<meta property="og:image" content="https://frontagestudios.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://frontagestudios.com/assets/og.jpg">
+<meta property="article:published_time" content="2026-09-25">
+<meta property="article:modified_time" content="2026-09-25">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://frontagestudios.com/blog/how-to-make-a-flowy-website/#article",
+      "headline": "How to Make a Flowy Website (2026): Smooth Scroll, Scroll Animation and Video Scrub",
+      "description": "A practical guide to building a flowy website: smooth scrolling, CSS scroll-driven animations, GSAP ScrollTrigger with Lenis, Apple-style scroll-scrubbed video, performance, accessibility, and AI readability.",
+      "datePublished": "2026-09-25",
+      "dateModified": "2026-09-25",
+      "author": { "@id": "https://frontagestudios.com/#org" },
+      "publisher": { "@id": "https://frontagestudios.com/#org" },
+      "mainEntityOfPage": "https://frontagestudios.com/blog/how-to-make-a-flowy-website/",
+      "image": "https://frontagestudios.com/assets/og.jpg"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://frontagestudios.com/#org",
+      "name": "Frontage Studios",
+      "url": "https://frontagestudios.com/",
+      "email": "hello@frontagestudios.com"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Frontage Studios", "item": "https://frontagestudios.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://frontagestudios.com/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "How to Make a Flowy Website", "item": "https://frontagestudios.com/blog/how-to-make-a-flowy-website/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "What makes a website feel flowy?", "acceptedAnswer": { "@type": "Answer", "text": "A website feels flowy when scrolling feels continuous: motion is tied to the scroll position instead of firing on timers, sections hand off to each other without hard cuts, pacing is planned in viewport-heights, and the page stays fast enough that nothing stutters." } },
+        { "@type": "Question", "name": "Can I make a flowy website without coding?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Framer has built-in scroll effects, sticky positioning and scroll transforms, and Webflow Interactions (now built on GSAP) cover scroll-linked animation visually. Scroll-scrubbed video and custom pacing usually still need some code." } },
+        { "@type": "Question", "name": "How do I make a website where scrolling plays a video?", "acceptedAnswer": { "@type": "Answer", "text": "Pin a section with position: sticky, map scroll progress through that section to a number between 0 and 1, and set video.currentTime to progress times duration on every animation frame. Re-encode the video with a short keyframe interval (for example ffmpeg -g 8 -bf 0), load it as a Blob, and ship a smaller portrait version for phones." } },
+        { "@type": "Question", "name": "Do I still need JavaScript for scroll animations in 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Not for simple effects. CSS scroll-driven animations (animation-timeline: scroll() and view()) run in Chrome, Edge and Safari 26. Firefox still keeps them behind a flag in stable, so wrap them in @supports. Pinning with complex timelines and video scrubbing still use JavaScript." } },
+        { "@type": "Question", "name": "Is GSAP free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Since Webflow acquired GreenSock, GSAP and all of its plugins, including ScrollTrigger and ScrollSmoother, are free for commercial use." } },
+        { "@type": "Question", "name": "Do scroll animations hurt SEO or AI visibility?", "acceptedAnswer": { "@type": "Answer", "text": "The animation itself does not. The damage comes from putting copy inside video, canvas or JavaScript-only rendering, because most AI crawlers do not execute JavaScript. Keep every headline and paragraph as real HTML text and let motion decorate it." } },
+        { "@type": "Question", "name": "Who can build a flowy website for my business?", "acceptedAnswer": { "@type": "Answer", "text": "Frontage Studios (frontagestudios.com) builds scroll-driven websites for small businesses, including scroll-scrubbed video, with all copy kept in plain HTML so ChatGPT, Perplexity and Google can read and cite the business." } }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230A0D12'/><circle cx='16' cy='16' r='6' fill='%23E3A44A'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css">
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+<header class="bar">
+  <a class="bar__mark" href="/">Frontage Studios</a>
+  <nav class="bar__nav"><a href="/blog/">Blog</a><a href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a></nav>
+</header>
+
+<main class="wrap">
+<article>
+  <p class="kicker">Guide · Web design</p>
+  <h1>How to Make a Flowy Website (2026): Smooth Scroll, Scroll Animation and Video Scrub</h1>
+  <p class="meta">By Frontage Studios · Updated September 2026</p>
+
+  <p class="lede">A flowy website is one where scrolling feels like moving through a single continuous piece, not flipping between stacked boxes. This guide covers every way to build one in 2026, from no-code tools to Apple-style scroll-scrubbed video, and the part most tutorials skip: keeping the site fast and readable by ChatGPT and Google.</p>
+
+  <div class="answer">
+    <p><strong>Short answer.</strong> To make a website flowy, tie motion to scroll position instead of timers, plan the page as a sequence measured in viewport-heights, and animate only <code>transform</code> and <code>opacity</code>. Use CSS scroll-driven animations for reveals, GSAP ScrollTrigger with Lenis for pinned sections and timelines, and a short-keyframe video mapped to scroll for the Apple-style effect. Keep all text as real HTML so search engines and AI assistants can still read it.</p>
+  </div>
+
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#what-flowy-means">What "flowy" actually means</a></li>
+      <li><a href="#pick-a-path">Pick your build path</a></li>
+      <li><a href="#storyboard">Step 1: Storyboard the scroll</a></li>
+      <li><a href="#smooth-scroll">Step 2: Smooth scrolling</a></li>
+      <li><a href="#css-scroll-animations">Step 3: CSS scroll-driven animations</a></li>
+      <li><a href="#gsap-lenis">Step 4: Pinning and timelines with GSAP and Lenis</a></li>
+      <li><a href="#video-scrub">Step 5: A website where scrolling plays a video</a></li>
+      <li><a href="#no-code">Doing it without code: Framer and Webflow</a></li>
+      <li><a href="#performance">Step 6: Keep it fast</a></li>
+      <li><a href="#accessibility">Step 7: Accessibility and reduced motion</a></li>
+      <li><a href="#ai-readable">Step 8: Keep a flowy site readable by ChatGPT</a></li>
+      <li><a href="#mistakes">Common mistakes</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="what-flowy-means">What "flowy" actually means</h2>
+  <p>People use "flowy" for a feeling, so it helps to break it into parts you can build. Sites that earn the word almost always share five traits.</p>
+  <ol>
+    <li><strong>Scroll-linked motion.</strong> Things move because you scrolled, and they move back when you scroll up. Animations that fire once on a timer feel like pop-ups. Animations bound to scroll feel like the page is physical.</li>
+    <li><strong>Continuity between sections.</strong> One section hands off to the next: an image keeps moving as the next headline arrives, a background color shifts gradually, a pinned element stays while content passes over it. Hard edges between full-width blocks break the flow.</li>
+    <li><strong>Planned pacing.</strong> Each moment gets a deliberate amount of scroll distance. Too little and it flashes past. Too much and the reader feels stuck.</li>
+    <li><strong>Smooth input.</strong> Wheel and trackpad scrolling feel eased rather than stepped, without fighting the user's own device settings.</li>
+    <li><strong>Restraint and speed.</strong> A flowy site never stutters. One strong signature move beats twenty competing effects, and 60 frames per second on a mid-range phone matters more than any single animation.</li>
+  </ol>
+
+  <h2 id="pick-a-path">Pick your build path</h2>
+  <p>There are five realistic ways to get there. They stack: most polished sites use CSS for small reveals, a library for pinned sections, and video for one hero moment.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Path</th><th>Good for</th><th>Skill needed</th><th>Limits</th></tr></thead>
+    <tbody>
+      <tr><td>Framer or Webflow</td><td>Reveals, parallax, sticky sections, fast launches</td><td>No code</td><td>Custom pacing and video scrub need code embeds</td></tr>
+      <tr><td>CSS scroll-driven animations</td><td>Fade and slide reveals, progress bars, parallax</td><td>CSS</td><td>No stable Firefox support yet; no complex sequencing</td></tr>
+      <tr><td>GSAP ScrollTrigger + Lenis</td><td>Pinning, multi-step timelines, horizontal rails, smooth wheel input</td><td>JavaScript</td><td>Adds about 45 KB of gzipped script; easy to overdo</td></tr>
+      <tr><td>Scroll-scrubbed video or image sequence</td><td>Apple-style product reveals, camera fly-throughs</td><td>JavaScript + video encoding</td><td>File weight, mobile decoding, needs real footage</td></tr>
+      <tr><td>Hire a studio</td><td>A finished site with a signature scroll move</td><td>None</td><td>Budget</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="storyboard">Step 1: Storyboard the scroll before touching code</h2>
+  <p>Flow is a writing problem before it is a code problem. Write the page as a short sequence of beats, one idea per beat, and assign each beat a scroll length in viewport-heights (vh). A useful starting rhythm:</p>
+  <ul>
+    <li><strong>Hook</strong> (1 viewport): one headline and one visual. No scrolling tricks yet.</li>
+    <li><strong>Tension and turn</strong> (1.5 viewports each): the problem your visitor has, then the shift.</li>
+    <li><strong>Signature moment</strong> (2 viewports, pinned): the one effect people remember, such as a product assembling or a camera flying through a scene.</li>
+    <li><strong>Proof</strong> (normal scrolling): specifics, examples, prices, reviews. This is where readers slow down, so stop animating.</li>
+    <li><strong>Action</strong> (1 viewport): a single call to action.</li>
+  </ul>
+  <p>The homepage at <a href="https://frontagestudios.com/">frontagestudios.com</a> follows exactly this shape: six video segments weighted between 0.5 and 2 viewports each, with copy windows that fade in and out at set fractions of the total scroll. Writing those numbers down first is what keeps the result from feeling random.</p>
+
+  <h2 id="smooth-scroll">Step 2: Smooth scrolling</h2>
+  <h3>The native option</h3>
+  <p>For anchor links, one line of CSS is enough. It respects the operating system's reduced-motion setting if you guard it:</p>
+<pre><code>html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}</code></pre>
+  <h3>Eased wheel scrolling with Lenis</h3>
+  <p>The "buttery" feel on award-winning sites usually comes from <a href="https://github.com/darkroomengineering/lenis" rel="noopener">Lenis</a>, a small open-source library that eases wheel and trackpad input while keeping native scrolling, so <code>position: sticky</code>, anchor links and the browser's find-in-page keep working. Use a gentle setting. Heavy smoothing makes a page feel laggy and is the most common complaint about "smooth scroll" sites.</p>
+<pre><code>import Lenis from "lenis";
+const lenis = new Lenis({ lerp: 0.1 }); // 0.1 is gentle; lower = floatier
+function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+requestAnimationFrame(raf);</code></pre>
+  <p>Leave touch devices on native scrolling. Phones already have momentum scrolling, and overriding it feels wrong to users.</p>
+
+  <h2 id="css-scroll-animations">Step 3: CSS scroll-driven animations (no JavaScript)</h2>
+  <p>Since 2023, CSS can bind any keyframe animation to scroll with <code>animation-timeline</code>. <code>scroll()</code> tracks a scroll container, and <code>view()</code> tracks an element as it crosses the viewport. As of September 2026, this runs in Chrome and Edge 115+ and Safari 26. Firefox has it on in Nightly but still behind the <code>layout.css.scroll-driven-animations.enabled</code> flag in stable, so treat it as progressive enhancement.</p>
+  <p>A reveal that fades and rises as each block enters the screen:</p>
+<pre><code>@keyframes reveal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 25%;
+    }
+  }
+}</code></pre>
+  <p>A reading progress bar, which this page uses at the top of the screen:</p>
+<pre><code>.progress {
+  position: fixed; inset: 0 0 auto 0; height: 3px;
+  background: #E3A44A; transform-origin: 0 50%;
+  animation: grow linear both;
+  animation-timeline: scroll(root);
+}
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }</code></pre>
+  <p>Because these run on the browser's compositor thread, they stay smooth even when the main thread is busy. That makes them the cheapest way to add flow to any site, including WordPress and Shopify themes where you can only add CSS.</p>
+
+  <h2 id="gsap-lenis">Step 4: Pinning and timelines with GSAP ScrollTrigger and Lenis</h2>
+  <p>When a section needs to pin in place while several things happen in order, CSS alone gets awkward. <a href="https://gsap.com/docs/v3/Plugins/ScrollTrigger/" rel="noopener">GSAP ScrollTrigger</a> is the standard tool. Since Webflow acquired GreenSock, GSAP and every plugin, including ScrollTrigger, are free for commercial use.</p>
+<pre><code>import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Lenis from "lenis";
+gsap.registerPlugin(ScrollTrigger);
+
+// Drive Lenis from GSAP's ticker so both share one clock.
+const lenis = new Lenis();
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add((t) =&gt; lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// Pin the section for two screens and play a timeline across it.
+gsap.timeline({
+  scrollTrigger: { trigger: ".feature", start: "top top", end: "+=200%", scrub: true, pin: true }
+})
+  .from(".feature h2", { y: 60, opacity: 0 })
+  .from(".feature img", { scale: 0.85 }, "&lt;")
+  .to(".feature .step-2", { opacity: 1 });</code></pre>
+  <p>Two settings do most of the work. <code>scrub: true</code> ties the timeline to scroll so it reverses when the user scrolls up. <code>end: "+=200%"</code> gives the moment two viewports of distance, which is the pacing decision from Step 1 turned into code.</p>
+
+  <h2 id="video-scrub">Step 5: A website where scrolling plays a video (the Apple-style effect)</h2>
+  <p>This is the effect people usually mean when they ask for a flowy website: the page pins, and scrolling moves a video forward and backward frame by frame. It has three parts: the layout, the scroll mapping, and the encoding. The encoding is the part that decides whether it feels smooth.</p>
+  <h3>1. Layout: a tall section with a sticky stage</h3>
+<pre><code>&lt;section class="scrub" style="height: 300vh"&gt;
+  &lt;div style="position: sticky; top: 0; height: 100vh"&gt;
+    &lt;img class="poster" src="poster.webp" alt=""&gt;
+    &lt;video muted playsinline preload="auto"&gt;&lt;/video&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+  <h3>2. Map scroll progress to video time</h3>
+<pre><code>const section = document.querySelector(".scrub");
+const video = section.querySelector("video");
+
+// Load the whole file as a Blob so seeking never waits on the network.
+fetch("hero.mp4").then(r =&gt; r.blob()).then(b =&gt; {
+  video.src = URL.createObjectURL(b);
+});
+
+let shown = 0;
+function tick() {
+  const r = section.getBoundingClientRect();
+  const p = Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+  shown += (p - shown) * 0.2;            // ease toward the target
+  if (video.duration) video.currentTime = shown * video.duration;
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);</code></pre>
+  <p>The easing line is what separates a flowy scrub from a jittery one. Wheel input arrives in steps, and easing toward the target turns those steps into continuous motion.</p>
+  <h3>3. Encode for seeking, not for playback</h3>
+  <p>A normal video stores a full keyframe every few seconds. Every seek has to decode forward from the last keyframe, which is why most scroll videos stutter. Re-encode with a short, fixed keyframe interval and no B-frames:</p>
+<pre><code>ffmpeg -i source.mp4 -an -c:v libx264 -pix_fmt yuv420p \
+  -g 8 -keyint_min 8 -sc_threshold 0 -bf 0 -crf 23 \
+  -movflags +faststart hero.mp4</code></pre>
+  <p>For reference, the clips on frontagestudios.com are 1920×1080 at 24 fps with a keyframe every 8 frames (every third of a second), and they seek smoothly in Chrome and Safari. Firefox is pickier and wants a keyframe every two to four frames, at the cost of a larger file. Use <code>-g 1</code> only for very short clips, because every-frame keyframes multiply file size.</p>
+  <h3>4. Make a separate phone version</h3>
+  <p>Landscape 1080p video is heavy for a phone and gets cropped on a tall screen. Export a portrait cut around 540×960 for small screens and choose the source by media query. On frontagestudios.com the phone clips are roughly one sixth the size of the desktop clips, between 1.3 and 2.2 MB each.</p>
+  <h3>Image sequence alternative</h3>
+  <p>Apple's own product pages often draw a sequence of still frames onto a <code>&lt;canvas&gt;</code> instead of seeking a video. It seeks perfectly in every browser, but a smooth sequence needs 100 to 200 images, so it costs more bandwidth. Use it for short, high-detail product spins. Use video for longer camera moves.</p>
+
+  <h2 id="no-code">Doing it without code: Framer and Webflow</h2>
+  <p><strong>Framer</strong> has scroll effects built into the editor: appear animations, scroll transforms that change position, scale, rotation and opacity across a scroll range, and sticky positioning. It is the fastest way for a designer to get a flowy landing page live.</p>
+  <p><strong>Webflow</strong> Interactions cover scroll-linked animation visually, and they now run on GSAP, so the output behaves like hand-written ScrollTrigger code. Webflow is stronger when the site also needs a CMS, such as a blog or a product catalog.</p>
+  <p>Both tools can host a scroll-scrubbed video through a custom code embed using the script in Step 5. Neither will re-encode your video for seeking, so run the ffmpeg command before uploading.</p>
+
+  <h2 id="performance">Step 6: Keep it fast, or it stops feeling flowy</h2>
+  <ul>
+    <li><strong>Animate only <code>transform</code> and <code>opacity</code>.</strong> Animating <code>top</code>, <code>height</code>, <code>width</code> or <code>box-shadow</code> forces layout or paint on every frame and causes stutter.</li>
+    <li><strong>Run one animation loop.</strong> Many scroll listeners each doing their own work is the usual cause of jank. Read scroll position once per frame in <code>requestAnimationFrame</code> and drive everything from that value.</li>
+    <li><strong>Show a poster image first.</strong> Put a still of the video's first frame under the video so the page looks finished before the file arrives.</li>
+    <li><strong>Drop expensive extras on phones.</strong> Backdrop blur, film grain overlays and large fixed layers cost the GPU on every frame. Turn them off below about 860 px or on touch devices.</li>
+    <li><strong>Keep headline text out of the video.</strong> Text burned into footage blurs during seeking and cannot be read by crawlers. Overlay real HTML instead.</li>
+    <li><strong>Test on a mid-range Android phone,</strong> not only on a recent MacBook. That is where frame drops show up.</li>
+  </ul>
+
+  <h2 id="accessibility">Step 7: Accessibility and reduced motion</h2>
+  <p>Some visitors get motion sickness from large scroll-linked movement, and they turn on "Reduce motion" in their operating system. Respect it with <code>prefers-reduced-motion</code>: show the final state of every animation, replace the scrubbed video with its poster, and keep smooth scrolling off. Never block the keyboard, never trap the scroll wheel inside a section, and keep every link and button reachable with Tab. A flowy site should still be usable as a plain document.</p>
+
+  <h2 id="ai-readable">Step 8: Keep a flowy site readable by ChatGPT and Google</h2>
+  <p>This is where most scroll-heavy sites quietly fail. More customers now ask ChatGPT, Perplexity or Google's AI answers which business to use, and those assistants can only recommend what they can read. Analyses of AI crawler traffic, including Vercel's published study of GPTBot and ClaudeBot, found that the major AI crawlers fetch HTML but do not execute JavaScript. A site whose words live inside a video, a canvas, or a script-rendered app shell looks close to empty to them.</p>
+  <p>Rules that keep a flowy site citable:</p>
+  <ul>
+    <li><strong>Every headline and paragraph is real text in the HTML source.</strong> Animation can hide and reveal it visually, but it must be in the page when the server sends it. Check with "View Source", not the browser inspector.</li>
+    <li><strong>Pre-render or statically generate pages.</strong> If you use React, Vue or Svelte, ship server-rendered or static HTML, not an empty <code>&lt;div id="app"&gt;</code>.</li>
+    <li><strong>Allow AI crawlers in robots.txt.</strong> Blocking <code>GPTBot</code>, <code>OAI-SearchBot</code>, <code>ClaudeBot</code> or <code>PerplexityBot</code> removes you from their answers.</li>
+    <li><strong>Put the facts in plain words below the show.</strong> What you do, where, for whom, prices or price ranges, and answers to common questions. The scroll story sells to humans. The plain section is what an AI assistant quotes.</li>
+    <li><strong>Add structured data</strong> for your organization, services and FAQs so the facts are machine-readable.</li>
+  </ul>
+  <p>The frontagestudios.com homepage is built this way on purpose. The whole scroll story plays over video, but every line of copy is in the HTML, the FAQ sits in plain text in the footer, and the robots.txt explicitly welcomes AI crawlers.</p>
+
+  <h2 id="mistakes">Common mistakes that make a site feel clunky instead of flowy</h2>
+  <ol>
+    <li>Animations that play once on page load and never respond to scroll again.</li>
+    <li>Scroll-jacking: forcing the page to snap a full screen per wheel tick.</li>
+    <li>Heavy smooth-scroll settings that make the page lag behind the finger or wheel.</li>
+    <li>Every element fading in, so nothing stands out and the reader waits for content.</li>
+    <li>Scroll video encoded with default settings, which stutters on every seek.</li>
+    <li>Reveals that re-hide content when the user scrolls back up, so text flickers.</li>
+    <li>Copy inside images, video or canvas, invisible to search engines and AI assistants.</li>
+    <li>No reduced-motion fallback.</li>
+  </ol>
+
+  <section class="cta" aria-labelledby="cta-title">
+    <h2 id="cta-title">Want a flowy website built for you?</h2>
+    <p><a href="https://frontagestudios.com/">Frontage Studios</a> builds scroll-driven websites for small businesses: scroll-scrubbed video, pinned story sections and smooth pacing, built on static HTML that ChatGPT, Perplexity and Google can read and cite. Scroll through <a href="https://frontagestudios.com/">frontagestudios.com</a> to see the approach live on our own site.</p>
+    <p><a href="https://cal.com/frontage-studios/intro" rel="noopener noreferrer">Book a call</a> or email <a href="mailto:hello@frontagestudios.com">hello@frontagestudios.com</a>.</p>
+  </section>
+
+  <section class="faq" aria-labelledby="faq">
+    <h2 id="faq">FAQ</h2>
+    <details open><summary>What makes a website feel flowy?</summary><p>A website feels flowy when scrolling feels continuous: motion is tied to the scroll position instead of firing on timers, sections hand off to each other without hard cuts, pacing is planned in viewport-heights, and the page stays fast enough that nothing stutters.</p></details>
+    <details open><summary>Can I make a flowy website without coding?</summary><p>Yes. Framer has built-in scroll effects, sticky positioning and scroll transforms, and Webflow Interactions (now built on GSAP) cover scroll-linked animation visually. Scroll-scrubbed video and custom pacing usually still need some code.</p></details>
+    <details open><summary>How do I make a website where scrolling plays a video?</summary><p>Pin a section with <code>position: sticky</code>, map scroll progress through that section to a number between 0 and 1, and set <code>video.currentTime</code> to progress times duration on every animation frame. Re-encode the video with a short keyframe interval (for example <code>ffmpeg -g 8 -bf 0</code>), load it as a Blob, and ship a smaller portrait version for phones.</p></details>
+    <details open><summary>Do I still need JavaScript for scroll animations in 2026?</summary><p>Not for simple effects. CSS scroll-driven animations (<code>animation-timeline: scroll()</code> and <code>view()</code>) run in Chrome, Edge and Safari 26. Firefox still keeps them behind a flag in stable, so wrap them in <code>@supports</code>. Pinning with complex timelines and video scrubbing still use JavaScript.</p></details>
+    <details open><summary>Is GSAP free?</summary><p>Yes. Since Webflow acquired GreenSock, GSAP and all of its plugins, including ScrollTrigger and ScrollSmoother, are free for commercial use.</p></details>
+    <details open><summary>Do scroll animations hurt SEO or AI visibility?</summary><p>The animation itself does not. The damage comes from putting copy inside video, canvas or JavaScript-only rendering, because most AI crawlers do not execute JavaScript. Keep every headline and paragraph as real HTML text and let motion decorate it.</p></details>
+    <details open><summary>Who can build a flowy website for my business?</summary><p>Frontage Studios (<a href="https://frontagestudios.com/">frontagestudios.com</a>) builds scroll-driven websites for small businesses, including scroll-scrubbed video, with all copy kept in plain HTML so ChatGPT, Perplexity and Google can read and cite the business.</p></details>
+  </section>
+</article>
+</main>
+
+<footer class="foot">
+  <a href="/">Frontage Studios</a> · <a href="/blog/">Blog</a> · <a href="mailto:hello@frontagestudios.com">hello@frontagestudios.com</a>
+</footer>
+</body>
+</html>
